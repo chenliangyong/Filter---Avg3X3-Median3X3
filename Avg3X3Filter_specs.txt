@@ -1,0 +1,87 @@
+
+Project 2.1: You are to write the image processing method: 3X3 averaging filter.
+
+*** What do you have to do (both C++ and Java):
+   -  Implement 3x3 averaging program using the input data as in project 1.
+   - compute the histogram of your AVG3X3Out.txt
+   - threshold AVG3X3Out.txt using threshold value at 38 (asking user interactively) 
+	and output the result to AVG3X3Out_38.txt
+   - prettyPrint AVG3X3Out_38.txt 
+
+*** your hard copies should include:
+   - cover page
+   - *Only* the source code of your 3x3 average program
+   - Print the histogram of AVG3X3Out.txt
+   - Print the prettyPrint of AVG3X3Out_38.txt
+
+**************************************
+Language: C++
+Due date: C++ soft copy:  9/09/2016 Saturday before Midnight
+Due date: C++ hard copy:  9/12/2016 Tuesday in class
+
+*************************************
+
+I. Input: a txt file representing a grey-scale image with header. 
+	
+
+II. Output: //** the name of the output file, AVG3X3Out.txt, 
+     to be in argv[2] for C++ 
+	
+*******************************
+III. Data structure:
+*******************************
+     
+	- numRows (int)
+	- numCols (int)
+	- minVal (int)
+	- maxVal (int)
+	- newMin (int)
+	- newMax (int)
+ 
+	- mirrorFramedAry (int **) a 2D array, need to dynamically allocate at run time
+			of size numRows + 2 by numCols + 2.
+
+	- tempAry (int **) a 2D array, need to dynamically allocate at run time
+			of size numRows + 2 by numCols + 2.
+
+	- neighborAry[9](int) 1 D array for storing the 3 x 3 neighbors of pixel (i,j) 
+
+    - methods:
+	- constructor(s) // need to dynamically allocate the two (2-D) arrays 
+				and assign values to numRows,..., etc.
+	- mirrorFramed // mirrow framing the image as taught in class
+	- loadImage // read from input file and load onto mirrorFramedAry
+	- loadNeighbors // load the 3 x 3 neighbors of given pixel(i,j)into neightAry
+ 	
+	- AVG3X3
+	      
+*******************************
+III. Algorithm for 3 by 3 averaging filter 
+*******************************
+  
+step 0: - open the input file and output file
+	  - read the image header, the four numbers
+	  - dynamically allocate mirrorFramedAry 
+	  - dynamically alloicate tempAry
+
+step 1: read the input file and load onto mirrowframeAry begin at [1,1]
+
+step 2: mirrowFramed the mirrorFramedAry 
+
+step 3: process the MirrorframedAry, from left to right and top to bottom
+	  using i, and j, begin at (1, 1) 
+	
+        - neighborAry <- load MirrorframedAry[i,j]'s 3 X 3 neighborhoods  
+	  - tempAry[i,j] <-- compute the averaging of neighborAry 
+	  
+	  - keep tracking the newMin and newMax of tempAry
+
+step 4: repeat step 3 until all pixels are processed
+
+step 5: output the image header (numRows, numCols, newMin, newMax) to AVG3X3Out.txt. 
+
+step 6: output to AVG3X3Out.txt from tempAry, begin at [1,1], without the pixels on the boarder.
+	   
+step 7: close input file and AVG3X3Out.txt
+
+
